@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do List</title>
+  <link rel="stylesheet" href="styles/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Forum&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <h1>To-Do List </h1>
+
+    <input type="text" id="newTask" placeholder="Enter a new task">
+    <input type="datetime-local" id="taskDateTime">
+    <button onclick="addTask()"><b>Add Task</b></button>
+
+    <h3>To-Do</h3>
+    <ul id="taskList"></ul>
+    <p id="emptyTaskMessage" style="display: none; text-align: center; color: #79959d;">Task list is empty</p>
+
+    <h3>Completed</h3>
+    <ul id="completedList"></ul>
+    <p id="emptyCompletedMessage" style="display: none; text-align: center; color: #79959d;">Completed list is empty</p>
+  </div>
+
+
+  <div id="editTaskModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <input type="text" id="editTaskText" placeholder="Edit task">
+      <input type="datetime-local" id="editTaskDateTime">
+      <button onclick="saveTask()">Save</button>
+    </div>
+  </div>
+
+  <div class="cursor"></div>
+
+  <script src="scripts/script.js"></script>
+</body>
+</html>

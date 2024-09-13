@@ -1,0 +1,381 @@
+body {
+  font-family: "Forum", serif;
+  margin: 0;
+  padding: 0;
+  background-color: #121212;
+  color: #e0e0e0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  --x: calc(var(--posX, 0) * 1px);
+  --y: calc(var(--posY, 0) * 1px);
+  background-image: 
+    linear-gradient(115deg, rgb(211 255 215), rgb(0 0 0)), 
+    radial-gradient(90% 100% at calc(50% + var(--x)) calc(0% + var(--y)), rgb(200 200 200), rgb(022 000 045)), 
+    radial-gradient(100% 100% at calc(80% - var(--x)) calc(0% - var(--y)), rgb(250 255 000), rgb(036 000 000)), 
+    radial-gradient(150% 210% at calc(100% + var(--x)) calc(0% + var(--y)), rgb(020 175 125), rgb(000 010 255)), 
+    radial-gradient(100% 100% at calc(100% - var(--x)) calc(30% - var(--y)), rgb(255 077 000), rgb(000 200 255)), 
+    linear-gradient(60deg, rgba(255, 0, 0, 0.818), rgb(120 086 255));
+  background-blend-mode: overlay, overlay, difference, difference, difference, normal;
+  
+}
+
+.container {
+  width: 400px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.648);
+  position: relative;   
+  z-index: 1;
+  transition: 0.5s ease;
+  background-color:transparent; 
+  
+}
+
+.container:hover::after {
+  opacity: 0.8;
+  top: 230px;
+  transform: scale(1.5);
+}
+.container:hover {
+  box-shadow: 0 0 20px 5px rgba(0, 255, 255, 0.558); 
+  transform: scale(1.02); 
+}
+
+h1, h3 {
+  text-align: center;
+  color: #f0f0f0;
+  margin: 20px 0;
+}
+
+
+input[type="text"], input[type="datetime-local"] {
+  height: 22px;
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #2c2c2c;
+  border: 2px solid #8707ff;
+  color: #e0e0e0;
+  border-radius: 5px;
+  font-family: "Forum";
+  font-size: medium;
+}
+
+input:focus {
+  box-shadow: 2px 2px 15px #8707ff inset;
+}
+
+button {
+  width: 100%;
+  padding: 0.8em 1.8em;
+  border: 2px solid #17C3B2;
+  position: relative;
+  overflow: hidden;
+  background-color: transparent;
+  text-align: center;
+  text-transform: uppercase;  
+  font-size: 15px;
+  transition: color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  z-index: 1;
+  font-family: "Forum";
+  color: #0fe58f;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button::before {
+  content: '';
+  width: 0;
+  height: 300%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  background: #17C3B2;
+  transition: width 0.5s ease;
+  z-index: -1;
+}
+
+button:hover::before {
+  width: 150%;
+}
+
+button:hover {
+  color: #121212;
+  background-color: #17C3B2;
+  box-shadow: 0 4px 15px rgba(23, 195, 178, 0.5);
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  background-color: transparent;
+  padding: 10px;
+  border-bottom: 1px solid #444;
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  color: #d4d4d4;
+  border-radius: 5px;
+}
+
+.task-actions {
+  margin-left: auto;
+  display: flex;
+  gap: 10px;
+}
+
+.edit-btn, .delete-btn {
+  background-color: transparent;
+  color: #17C3B2;
+  border: 1px solid #17C3B2;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "Forum";
+  font-size: 14px;
+  transition: 0.3s;
+  justify-content: center;
+}
+
+.edit-btn:hover, .delete-btn:hover {
+  background-color: #17C3B2;
+  color: #121212;
+}
+
+.task-actions button {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s ease;
+}
+
+.task-actions button:hover {
+  box-shadow: 0 4px 15px rgba(23, 195, 178, 0.4);
+}
+
+/* Responsive design for mobile devices */
+@media (max-width: 600px) {
+  .container {
+    padding: 15px;
+  }
+
+  input[type="text"], input[type="datetime-local"], button {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  button {
+    width: auto;
+  }
+}
+
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+  padding-top: 60px;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 500px;
+  border-radius: 8px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: rgb(245, 243, 243);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#editTaskText, #editTaskDateTime {
+  width: calc(100% - 20px);
+  margin-bottom: 10px;
+}
+
+/* Checklist Styles */
+#checklist {
+  --background: transparent;
+  --text: #e0e0e0;
+  --check: #4CAF50;
+  --disabled: #c3c8de;
+  --border-radius: 10px;
+  padding: 10px;
+  border-radius: var(--border-radius);
+  display: grid;
+  grid-template-columns: 30px auto;
+  align-items: center;
+}
+
+#checklist label {
+  color: var(--text);
+  position: relative;
+  cursor: pointer;
+  display: grid;
+  align-items: center;
+  width: fit-content;
+  transition: color 0.3s ease;
+  margin-right: 20px;
+  background-color: transparent;
+}
+
+#checklist label::before, #checklist label::after {
+  content: "";
+  position: absolute;
+}
+
+#checklist label::before {
+  height: 2px;
+  width: 8px;
+  left: -27px;
+  background: var(--check);
+  border-radius: 2px;
+}
+
+#checklist input[type="checkbox"] {
+  appearance: none;
+  position: relative;
+  height: 15px;
+  width: 15px;
+  outline: none;
+  border: 0;
+  cursor: pointer;
+  background: transparent;
+  display: grid;
+  align-items: center;
+}
+
+#checklist input[type="checkbox"]::before, #checklist input[type="checkbox"]::after {
+  content: "";
+  position: absolute;
+  height: 2px;
+  top: auto;
+  background: var(--check);
+  border-radius: 2px;
+}
+
+#checklist input[type="checkbox"]::before {
+  width: 0px;
+  right: 60%;
+  transform-origin: right bottom;
+}
+
+#checklist input[type="checkbox"]::after {
+  width: 0px;
+  left: 40%;
+  transform-origin: left bottom;
+}
+
+#checklist input[type="checkbox"]:checked::before {
+  animation: check-01 0.4s ease forwards;
+}
+
+#checklist input[type="checkbox"]:checked::after {
+  animation: check-02 0.4s ease forwards;
+}
+
+#checklist input[type="checkbox"]:checked + label {
+  color: var(--disabled);
+  opacity: 0.5;
+  text-decoration: line-through;
+  animation: move 0.3s ease 0.1s forwards;
+}
+
+#checklist input[type="checkbox"]:checked + label::before {
+  background: var(--disabled);
+  animation: slice 0.4s ease forwards;
+}
+
+#checklist input[type="checkbox"]:checked + label::after {
+  animation: firework 0.5s ease forwards 0.1s;
+}
+
+@keyframes slice {
+  60% {
+    width: 100%;
+    left: 4px;
+  }
+
+  100% {
+    width: 100%;
+    left: -2px;
+    padding-left: 0;
+  }
+}
+
+@keyframes check-01 {
+  0% {
+    width: 4px;
+    top: auto;
+    transform: rotate(0);
+  }
+
+  50% {
+    width: 0px;
+    top: auto;
+    transform: rotate(0);
+  }
+
+  51% {
+    width: 0px;
+    top: 8px;
+    transform: rotate(45deg);
+  }
+
+  100% {
+    width: 5px;
+    top: 8px;
+    transform: rotate(45deg);
+  }
+}
+
+@keyframes check-02 {
+  0% {
+    width: 4px;
+    top: auto;
+    transform: rotate(0);
+  }
+
+  50% {
+    width: 0px;
+    top: auto;
+    transform: rotate(0);
+  }
+
+  51% {
+    width: 0px;
+    top: 8px;
+    transform: rotate(-45deg);
+  }
+
+  100% {
+    width: 10px;
+    top: 8px;
+    transform: rotate(-45deg);
+  }
+}
+
